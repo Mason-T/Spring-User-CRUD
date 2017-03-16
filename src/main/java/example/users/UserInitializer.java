@@ -42,68 +42,68 @@ import org.springframework.core.io.Resource;
 @RequiredArgsConstructor
 public class UserInitializer {
 
-	private final UserRepository repository;
+    private final UserRepository repository;
 
-	public void init() throws Exception {
+    public void init() throws Exception {
 
-		List<User> users = readUsers(new ClassPathResource("randomuser.me.csv"));
+        List<User> users = readUsers(new ClassPathResource("randomuser.me.csv"));
 
-		repository.deleteAll();
-		repository.save(users);
-	}
+        repository.deleteAll();
+        repository.save(users);
+    }
 
-	private static List<User> readUsers(Resource resource) throws Exception {
+    private static List<User> readUsers(Resource resource) throws Exception {
 
-		Scanner scanner = new Scanner(resource.getInputStream());
-		String line = scanner.nextLine();
-		scanner.close();
+        Scanner scanner = new Scanner(resource.getInputStream());
+        String line = scanner.nextLine();
+        scanner.close();
 
-		FlatFileItemReader<User> reader = new FlatFileItemReader<User>();
-		reader.setResource(resource);
+        FlatFileItemReader<User> reader = new FlatFileItemReader<User>();
+        reader.setResource(resource);
 
-		DelimitedLineTokenizer tokenizer = new DelimitedLineTokenizer();
-		tokenizer.setNames(line.split(","));
-		tokenizer.setStrict(false);
+        DelimitedLineTokenizer tokenizer = new DelimitedLineTokenizer();
+        tokenizer.setNames(line.split(","));
+        tokenizer.setStrict(false);
 
-		DefaultLineMapper<User> lineMapper = new DefaultLineMapper<User>();
-		lineMapper.setFieldSetMapper(fields -> {
+        DefaultLineMapper<User> lineMapper = new DefaultLineMapper<User>();
+        lineMapper.setFieldSetMapper(fields -> {
 
-			User user = new User();
+            User user = new User();
 
-			user.setFirstname(capitalize(fields.readString("first")));
-			user.setLastname(capitalize(fields.readString("last")));
-			user.setTelephone(fields.readString("phone"));
-			user.setEmail(fields.readString("email"));
-			String street = fields.readString("street");
-			String city = fields.readString("city");
-			String state = fields.readString("state");
-			String zip = fields.readString("zip");
+            user.setFirstname(capitalize(fields.readString("first")));
+            user.setLastname(capitalize(fields.readString("last")));
+            user.setTelephone(fields.readString("phone"));
+            user.setEmail(fields.readString("email"));
+            String street = fields.readString("street");
+            String city = fields.readString("city");
+            String state = fields.readString("state");
+            String zip = fields.readString("zip");
 
-			user.setAddress(new Address(street, city, state, zip));
+            user.setAddress(new Address(street, city, state, zip));
 
-			return user;
-		});
+            return user;
+        });
 
-		lineMapper.setLineTokenizer(tokenizer);
+        lineMapper.setLineTokenizer(tokenizer);
 
-		reader.setLineMapper(lineMapper);
-		reader.setRecordSeparatorPolicy(new DefaultRecordSeparatorPolicy());
-		reader.setLinesToSkip(1);
-		reader.open(new ExecutionContext());
+        reader.setLineMapper(lineMapper);
+        reader.setRecordSeparatorPolicy(new DefaultRecordSeparatorPolicy());
+        reader.setLinesToSkip(1);
+        reader.open(new ExecutionContext());
 
-		List<User> users = new ArrayList<>();
-		User user = null;
+        List<User> users = new ArrayList<>();
+        User user = null;
 
-		do {
+        do {
 
-			user = reader.read();
+            user = reader.read();
 
-			if (user != null) {
-				users.add(user);
-			}
+            if (user != null) {
+                users.add(user);
+            }
 
-		} while (user != null);
+        } while (user != null);
 
-		return users;
-	}
+        return users;
+    }
 }

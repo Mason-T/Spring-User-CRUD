@@ -2,25 +2,25 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sd="http://www.thymeleaf.org/spring-data">
 <!-- Author Mason Traylor -->
 <head>
-	<title>User Center</title>
+    <title>User Center</title>
 
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
 </head>
 
 <body>
-	<div class="container-fluid">
-		<h1>User Center</h1>
+    <div class="container-fluid">
+        <h1>User Center</h1>
 
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title">Search/Create User</h3>
-			</div>
-			<div class="panel-body">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Search/Create User</h3>
+            </div>
+            <div class="panel-body">
 
-				<form action="/" th:object="${userForm}">
+                <form action="/" th:object="${userForm}">
 
                     <div class="form-group col-sm-6">
                         <div class="form-group">
@@ -59,74 +59,74 @@
                             <input id="address.zip" name="address.zip" th:value="${#httpServletRequest.getParameter('address.zip')}" type="text" class="form-control" />
                         </div>
                     </div>
-					<div align="left" class="form-group col-sm-4">
-						<button id="submit_search" type="submit" class="btn btn-default">Search</button>
-					</div>
+                    <div align="left" class="form-group col-sm-4">
+                        <button id="submit_search" type="submit" class="btn btn-default">Search</button>
+                    </div>
                     <div align="center" class="form-group col-sm-4">
                         <button id="submit_create" type="submit" formmethod="post" class="btn btn-default">Create</button>
                     </div>
 
-				</form>
+                </form>
                 <form action="/">
                     <div align="right" class="form-group col-sm-4">
                         <button id="clear" type="submit" class="btn btn-default">Clear</button>
                     </div>
                 </form>
-			</div>
-		</div>
+            </div>
+        </div>
 
-		<nav class="text-center">
-			<div sd:pagination-summary="true">Pagination information</div>
-			<ul class="pagination" sd:pagination="full">
-				<!-- Pagination created by the Thymeleaf Spring Data dialect, this content is just for mockup -->
-				<li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-				<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-			</ul>
-		</nav>
+        <nav class="text-center">
+            <div sd:pagination-summary="true">Pagination information</div>
+            <ul class="pagination" sd:pagination="full">
+                <!-- Pagination created by the Thymeleaf Spring Data dialect, this content is just for mockup -->
+                <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+            </ul>
+        </nav>
 
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>#</th>
-					<th style="width:5%"><a sd:pagination-sort="firstname">Firstname</a></th>
-					<th><a sd:pagination-sort="lastname">Lastname</a></th>
-					<th><a sd:pagination-sort="telephone">Telephone</a></th>
-					<th><a sd:pagination-sort="email">Email</a></th>
-					<th><a sd:pagination-sort="address.street">Street</a></th>
-					<th><a sd:pagination-sort="address.city">City</a></th>
-					<th><a sd:pagination-sort="address.state">State</a></th>
-					<th><a sd:pagination-sort="address.zip">Zip</a></th>
-					<th></th>
-					<th></th>
-				</tr>	
-			</thead>
-			<tbody>
-				<tr th:each="user : ${users}" style="width=50%">
-					<form th:action="@{/}" th:object="${userForm}" th:method="put">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th style="width:5%"><a sd:pagination-sort="firstname">Firstname</a></th>
+                    <th><a sd:pagination-sort="lastname">Lastname</a></th>
+                    <th><a sd:pagination-sort="telephone">Telephone</a></th>
+                    <th><a sd:pagination-sort="email">Email</a></th>
+                    <th><a sd:pagination-sort="address.street">Street</a></th>
+                    <th><a sd:pagination-sort="address.city">City</a></th>
+                    <th><a sd:pagination-sort="address.state">State</a></th>
+                    <th><a sd:pagination-sort="address.zip">Zip</a></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="user : ${users}" style="width=50%">
+                    <form th:action="@{/}" th:object="${userForm}" th:method="put">
                         <input type="hidden" id="id" name="id" th:value="${user.id}"/>
-						<td th:text="${users.number * users.size + userStat.index + 1} + '.'">1.</td>
-						<td><input size="10" type="text" name="firstname" id="firstname" th:value="${user.firstname}"/></td>
-						<td><input size="10" type="text" name="lastname"  id="lastname"  th:value="${user.lastname}"/></td>
-						<td><input size="10" type="text" name="telephone" id="telephone" th:value="${user.telephone}"/></td>
-						<td><input size="20" type="text" name="email"     id="email"     th:value="${user.email}"/></td>
-						<td><input size="20" type="text" name="street"    id="street"    th:value="${user.address.street}"/></td>
-						<td><input size="10" type="text" name="city"      id="city"      th:value="${user.address.city}"/></td>
-						<td><input size="10" type="text" name="state"     id="state"     th:value="${user.address.state}"/></td>
-						<td><input size="10" type="text" name="zip"       id="zip"       th:value="${user.address.zip}"/></td>
-						<td><button id="edit" type="submit" class="btn btn-default">Edit</button></td>
-					</form>
-					<form th:action="@{/{path}(path=${user.id})}" th:method="delete">
-						<td>
-							<button id="delete" type="submit" class="btn btn-default">Delete</button>
-						</td>
-					</form>
-				</tr>
-			</tbody>
-		</table>
+                        <td th:text="${users.number * users.size + userStat.index + 1} + '.'">1.</td>
+                        <td><input size="10" type="text" name="firstname" id="firstname" th:value="${user.firstname}"/></td>
+                        <td><input size="10" type="text" name="lastname"  id="lastname"  th:value="${user.lastname}"/></td>
+                        <td><input size="10" type="text" name="telephone" id="telephone" th:value="${user.telephone}"/></td>
+                        <td><input size="20" type="text" name="email"     id="email"     th:value="${user.email}"/></td>
+                        <td><input size="20" type="text" name="street"    id="street"    th:value="${user.address.street}"/></td>
+                        <td><input size="10" type="text" name="city"      id="city"      th:value="${user.address.city}"/></td>
+                        <td><input size="10" type="text" name="state"     id="state"     th:value="${user.address.state}"/></td>
+                        <td><input size="10" type="text" name="zip"       id="zip"       th:value="${user.address.zip}"/></td>
+                        <td><button id="edit" type="submit" class="btn btn-default">Edit</button></td>
+                    </form>
+                    <form th:action="@{/{path}(path=${user.id})}" th:method="delete">
+                        <td>
+                            <button id="delete" type="submit" class="btn btn-default">Delete</button>
+                        </td>
+                    </form>
+                </tr>
+            </tbody>
+        </table>
 
-		<ul class="pagination" sd:pagination="aligned-links"></ul>
+        <ul class="pagination" sd:pagination="aligned-links"></ul>
 
-	</div>
+    </div>
 
 </body>
 </html>

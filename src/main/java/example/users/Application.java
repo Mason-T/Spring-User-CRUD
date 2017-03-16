@@ -31,19 +31,19 @@ import org.thymeleaf.dialect.springdata.SpringDataDialect;
 @SpringBootApplication
 public class Application extends WebMvcConfigurerAdapter {
 
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
 
-	@Bean
-	SpringDataDialect springDataDialect() {
-		return new SpringDataDialect();
-	}
+    @Bean
+    SpringDataDialect springDataDialect() {
+        return new SpringDataDialect();
+    }
 
-	@Autowired UserRepository repo;
+    @Autowired UserRepository repo;
 
-	@PostConstruct
-	void initialize() throws Exception {
-		new UserInitializer(repo).init();
-	}
+    @PostConstruct
+    void initialize() throws Exception {
+        new UserInitializer(repo).init();
+    }
 }

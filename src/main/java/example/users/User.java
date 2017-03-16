@@ -33,16 +33,16 @@ import java.util.Random;
 @Document
 public class User {
 
-	private static Random rand = new Random();
+    private static Random rand = new Random();
 
-	@Id
-	private long id = rand.nextLong();
-	private String firstname, lastname, telephone, email;
+    @Id
+    private long id = rand.nextLong();
+    private String firstname, lastname, telephone, email;
 
-	private @JsonUnwrapped Address address;
+    private @JsonUnwrapped Address address;
 
-	@Value
-	public static class Address {
-		String street, city, state, zip;
-	}
+    @Value
+    public static class Address {
+        String street, city, state, zip;
+    }
 }
