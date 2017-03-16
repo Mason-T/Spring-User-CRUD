@@ -1,12 +1,12 @@
-# Spring Data Web - Querydsl example
+# Spring Data - User CRUD example
 
-This example shows some of the Spring Data Querydsl integration features with Spring MVC.
+This application is a combination of Spring Data features, including Querydsl integration with Spring MVC. Based off of the querydsl example from https://github.com/spring-projects/spring-data-examples
 
 ## Quickstart
 
 1. Install MongoDB (http://www.mongodb.org/downloads, unzip, run `mkdir data`, run `bin/mongod --dbpath=data`)
 2. Build and run the app (`mvn spring-boot:run`)
-4. Access app directly via its UI (`http://localhost:8080/`).
+3. Access app directly via its UI (`http://localhost:8080/`).
 
 ## Interesting bits
 
