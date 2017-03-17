@@ -27,6 +27,7 @@ import org.thymeleaf.dialect.springdata.SpringDataDialect;
 /**
  * @author Christoph Strobl
  * @author Oliver Gierke
+ * @author Mason Traylor
  */
 @SpringBootApplication
 public class Application extends WebMvcConfigurerAdapter {

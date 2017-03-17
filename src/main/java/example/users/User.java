@@ -28,6 +28,7 @@ import java.util.Random;
 /**
  * @author Christoph Strobl
  * @author Oliver Gierke
+ * @author Mason Traylor
  */
 @Data
 @Document
