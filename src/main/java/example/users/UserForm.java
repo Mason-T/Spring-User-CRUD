@@ -1,7 +1,10 @@
 package example.users;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.Email;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.validation.constraints.Pattern;
@@ -29,11 +32,11 @@ public class UserForm {
     private String telephone;
 
     @NotNull
-    @Pattern(regexp=".+@.+\\..+")
+    @Email
     private String email;
 
     @Data
-    private final class AddressForm {
+    public class AddressForm {
         @NotNull
         @Size(min = 2, max = 30)
         private String street;
@@ -55,6 +58,7 @@ public class UserForm {
         }
     }
 
+    @Valid
     private AddressForm address = new AddressForm();
 
     public User makeUser() {
